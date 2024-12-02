@@ -28,9 +28,13 @@ var boost_factor_late_early: float = 1.15
 
 @onready var animation_player = $AnimationPlayer
 @onready var sprite = $Sprite2D
+@onready var sprite_base_scale:Vector2 = sprite.scale
 
 func _ready() -> void:
 	randomize()
+
+func _process(delta):
+	scale_based_on_speed()
 
 func _physics_process(delta: float) -> void:
 	$VelocityLine.rotation = velocity.angle()
@@ -59,6 +63,7 @@ func _physics_process(delta: float) -> void:
 	
 	var normal = collision.get_normal()
 	sprite.rotation = -normal.angle()
+	animation_player.play("bounce")
 
 	# Update the normal with the paddle's velocity if we collide with
 	# the paddle
@@ -166,3 +171,7 @@ func launch() -> void:
 #	velocity = (-global_transform.y).rotated(randf_range(-PI/3.0, PI/3.0)) * speed
 	velocity = -global_transform.y * speed
 	attached_to = null
+
+func scale_based_on_speed():
+	if animation_player.is_playing(): return
+	sprite.scale = lerp(sprite_base_scale,sprite_base_scale * Vector2(1.4,0.5), velocity.length()/max_speed)
