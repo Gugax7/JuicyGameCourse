@@ -29,7 +29,7 @@ var boost_factor_late_early: float = 1.15
 @onready var animation_player = $AnimationPlayer
 @onready var sprite = $Sprite2D
 @onready var sprite_base_scale:Vector2 = sprite.scale
-
+const bounce_particles = preload("res://scenes/effects/gpu_particles_2d.tscn")
 func _ready() -> void:
 	randomize()
 
@@ -118,6 +118,7 @@ func _physics_process(delta: float) -> void:
 	else:
 #		print("HIT OTHER: ", Globals.stats["ball_bounces"])
 		velocity = velocity.bounce(normal)
+		spawn_bounce_particles(collision.get_position(),normal)
 	
 	velocity = velocity.limit_length(max_speed)
 	
@@ -175,3 +176,10 @@ func launch() -> void:
 func scale_based_on_speed():
 	if animation_player.is_playing(): return
 	sprite.scale = lerp(sprite_base_scale,sprite_base_scale * Vector2(1.4,0.5), velocity.length()/max_speed)
+
+func spawn_bounce_particles(pos:Vector2, normal:Vector2):
+	var instance = bounce_particles.instantiate()
+	get_tree().get_current_scene().add_child(instance)
+	instance.global_position = pos
+	instance.rotation = normal.angle()
+	instance.emitting = true
