@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://6dsmk8d3wv0u"]
 
-[ext_resource type="Texture2D" uid="uid://doqriorw2lonx" path="res://scenes/ball/visuals/ball.png" id="1_4ifon"]
+[ext_resource type="Texture2D" uid="uid://doqriorw2lonx" path="res://scenes/ball/visuals/ball.png" id="1_s6kgk"]
 
 [sub_resource type="Curve" id="Curve_3wbkj"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.522727, 0), 0.0, 0.0, 0, 0]
@@ -23,6 +23,6 @@ scale_curve = SubResource("CurveTexture_apeva")
 emitting = false
 amount = 16
 process_material = SubResource("ParticleProcessMaterial_jvjlu")
-texture = ExtResource("1_4ifon")
+texture = ExtResource("1_s6kgk")
 one_shot = true
 explosiveness = 0.87

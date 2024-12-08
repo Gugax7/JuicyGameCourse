@@ -35,6 +35,7 @@ func _ready() -> void:
 	ball.attached_to = paddle.launch_point
 	paddle.ball_attached = ball
 	paddle.ball = ball
+	ball.appear()
 	
 	for brick in get_tree().get_nodes_in_group("Bricks"):
 		brick.energy_brick_destroyed.connect(on_energy_brick_destroyed)
@@ -46,6 +47,7 @@ func _ready() -> void:
 func _process(delta) -> void:
 	if not started: return
 	time += delta
+	#paddle.position.x = ball.global_position.x
 		
 func layout_bricks() -> void:
 	var max_bricks: int = spawn_pos_container.get_child_count()
@@ -76,6 +78,7 @@ func reset_and_attach_ball() -> void:
 	paddle.ball_attached = ball
 	paddle.game_over = false
 	paddle.stage_clear = false
+	ball.appear()
 	
 func add_energy(value: float) -> void:
 	energy += value
