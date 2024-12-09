@@ -1,4 +1,5 @@
 extends Node
+var camera
 
 enum BUMP {
 	TOO_FAR,

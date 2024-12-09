@@ -135,6 +135,7 @@ func give_energy() -> void:
 	emit_signal("energy_brick_destroyed")
 
 func explode() -> void:
+	Globals.camera.shake(3,30,30)
 	var bodies = explosion_area.get_overlapping_bodies()
 	for body in bodies:
 		if body._destroyed: continue

@@ -141,6 +141,7 @@ func _physics_process(delta: float) -> void:
 			start_hitstop(hitstop_bomb)
 		else:
 			velocity = velocity.bounce(normal)
+			Globals.camera.shake(0.25,20,15)
 			start_hitstop(hitstop_block)
 	else:
 #		print("HIT OTHER: ", Globals.stats["ball_bounces"])
