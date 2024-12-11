@@ -9,6 +9,11 @@ signal start()
 @export var dash_speed: float = 1000.0
 @export var dash_duration: float = 0.1
 
+@export_category("Oscilattor")
+@export var spring :float = 150
+@export var damp: float = 10.0
+@export var velocity_multiplier:float = 2.0
+
 var dashing: bool = false
 var ball_attached = null
 var bumping: bool = false : get = get_bumping, set = set_bumping
@@ -16,12 +21,19 @@ var game_over: bool = false
 var stage_clear: bool = false
 var ball = null
 var frames_since_bump: int = 0
+var max_lean_degrees = 15
+var lean_speed = 4
+
+##Oscilator
+var displacement: float = 0.0
+var oscillator_velocity: float = 0.0
 
 @onready var dash_timer: Timer = $DashTimer
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var launch_point: Marker2D = $LaunchPoint
 @onready var laser: Area2D = $Laser
 @onready var thickness: float = $CollisionShape2D.shape.extents.y
+@onready var sprite = $Paddle
 
 func _ready() -> void:
 	pass
@@ -30,7 +42,22 @@ func _process(delta: float) -> void:
 	if dashing or game_over or stage_clear: return
 	var dir: float = Input.get_action_strength("right") - Input.get_action_strength("left")
 	
-	velocity.x = dir * speed
+	if dir != 0:
+		#accelerate
+		velocity = lerp(velocity,speed * dir * Vector2(1,0),accel * delta)
+	else:
+		velocity = lerp(velocity, Vector2.ZERO, deccel * delta)
+		
+	
+	#Oscillator
+	oscillator_velocity += (velocity.x / speed) * velocity_multiplier
+	var force = -spring * displacement + oscillator_velocity * damp
+	oscillator_velocity -= force * delta
+	displacement -= oscillator_velocity * delta
+	
+	sprite.rotation = -displacement
+	
+	#sprite.rotation = lerp_angle(sprite.rotation, deg_to_rad(max_lean_degrees) * dir, lean_speed * delta)
 	
 	if Input.is_action_just_pressed("bump"):
 		frames_since_bump = 0
