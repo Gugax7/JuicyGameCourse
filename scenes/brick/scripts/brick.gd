@@ -14,6 +14,7 @@ signal destroyed(which)
 @export var bomb: CompressedTexture2D = preload("res://scenes/brick/visuals/Bomb.png")
 @export var energy: CompressedTexture2D = preload("res://scenes/brick/visuals/Energy.png")
 
+var bounce_tween: Tween
 enum TYPE {
 	ONE,
 	TWO,
@@ -106,6 +107,19 @@ func update_type_visuals() -> void:
 			type_sprite.texture = bomb
 		TYPE.ENERGY:
 			type_sprite.texture = energy
+			
+func bounce() -> void:
+	if bounce_tween and bounce_tween.is_running():
+		bounce_tween.kill()
+	bounce_tween = create_tween()
+	bounce_tween.tween_property(size_sprite,"scale",Vector2(1.15,1.15),0.2) \
+				.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	bounce_tween.parallel().tween_property(size_sprite,"rotation",randf_range(-10.0,10.0),0.2) \
+				.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	bounce_tween.tween_property(size_sprite,"scale",Vector2.ONE,0.2) \
+				.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	bounce_tween.parallel().tween_property(size_sprite,"rotation_degrees",0.0,0.2) \
+				.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 
 func damage(value: int) -> void:
 	health -= value
@@ -118,7 +132,7 @@ func damage(value: int) -> void:
 			TYPE.ENERGY:
 				give_energy()
 		destroy()
-	
+	bounce()
 	update_type_health()
 
 func update_type_health() -> void:

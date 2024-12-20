@@ -94,6 +94,7 @@ func _physics_process(delta: float) -> void:
 		if boost_factor == 1.0:
 			start_hitstop(hitstop_paddle)
 		frames_since_paddle_collison = 0
+		collision.get_collider().ball_bounce()
 #		print("Normal:", normal)
 #		print("Dot:", normal.dot(Vector2.UP))
 		
