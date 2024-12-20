@@ -1,16 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://dyy7lp07carkr"]
+[gd_scene load_steps=13 format=3 uid="uid://dyy7lp07carkr"]
 
 [ext_resource type="Script" path="res://scenes/paddle/scripts/paddle.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bf0hn220saeh8" path="res://scenes/paddle/laser.tscn" id="2"]
 [ext_resource type="Texture2D" uid="uid://blae5o6klukpa" path="res://scenes/paddle/visuals/Paddle.png" id="3"]
-[ext_resource type="Shader" path="res://scenes/effects/deform.gdshader" id="3_o81vl"]
-[ext_resource type="PackedScene" uid="uid://bu13ofb4leok1" path="res://scenes/paddle/ghost_spawner.tscn" id="5_t7c60"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ynvp4"]
-shader = ExtResource("3_o81vl")
-shader_parameter/x_factor = 2.0
-shader_parameter/bulge = 0.0
-shader_parameter/color = null
 
 [sub_resource type="Gradient" id="Gradient_oc0hi"]
 offsets = PackedFloat32Array(0, 0.111111, 0.294118, 1)
@@ -56,58 +48,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 4)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Paddle:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Paddle:material:shader_parameter/bulge")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_24h2v"]
-resource_name = "bounce"
-length = 0.378
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Paddle:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0542979, 0.158541, 0.371708),
-"transitions": PackedFloat32Array(-2, -2, -2, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0.57), Vector2(1, 1.3), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Paddle:material:shader_parameter/bulge")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0521216, 0.158541, 0.373994),
-"transitions": PackedFloat32Array(-2, -2, -2, 1),
-"update": 0,
-"values": [0.0, 0.462, -0.41, 0.0]
-}
 
 [sub_resource type="Animation" id="2"]
 resource_name = "bump"
@@ -129,7 +69,6 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cnhir"]
 _data = {
 "RESET": SubResource("3"),
-"bounce": SubResource("Animation_24h2v"),
 "bump": SubResource("2")
 }
 
@@ -145,7 +84,6 @@ velocity_multiplier = 1.5
 
 [node name="Paddle" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0, 0, 1)
-material = SubResource("ShaderMaterial_ynvp4")
 position = Vector2(0, 4)
 texture = ExtResource("3")
 
@@ -171,9 +109,5 @@ libraries = {
 }
 
 [node name="Timer" type="Timer" parent="."]
-
-[node name="GhostSpawner" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("5_t7c60")]
-sprite = NodePath("../Paddle")
-color = Color(1, 1, 1, 0.513726)
 
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]

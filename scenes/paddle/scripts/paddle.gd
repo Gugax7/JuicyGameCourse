@@ -34,7 +34,6 @@ var oscillator_velocity: float = 0.0
 @onready var laser: Area2D = $Laser
 @onready var thickness: float = $CollisionShape2D.shape.extents.y
 @onready var sprite = $Paddle
-@onready var ghost_spawner = $GhostSpawner
 
 func _ready() -> void:
 	pass
@@ -62,7 +61,6 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("bump"):
 		frames_since_bump = 0
-		anim.stop(false)
 		anim.play("bump")
 		if ball_attached:
 			launch_ball()
@@ -71,7 +69,6 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("dash") and not dashing:
 		dashing = true
-		ghost_spawner.start_spawn()
 		dash_timer.start(dash_duration)
 		velocity.x = sign(velocity.x) * dash_speed
 		
@@ -110,6 +107,3 @@ func launch_ball() -> void:
 
 func _on_DashTimer_timeout() -> void:
 	dashing = false
-	ghost_spawner.stop_spawn()
-func ball_bounce()->void:
-	anim.play("bounce")
