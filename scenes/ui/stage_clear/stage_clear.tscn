@@ -51,7 +51,7 @@ text = "STAGE CLEAR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+[node name="EntireStatsBox" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -65,112 +65,112 @@ offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2"]
+[node name="Columns" type="HBoxContainer" parent="EntireStatsBox"]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer2/HBoxContainer"]
+[node name="NameColumn" type="VBoxContainer" parent="EntireStatsBox/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="EntireStatsBox/Columns/NameColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "TIME"
 
-[node name="Label2" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer2"]
+[node name="Label2" type="Label" parent="EntireStatsBox/Columns/NameColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "EARLY BUMPS"
 
-[node name="Label5" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer2"]
+[node name="Label5" type="Label" parent="EntireStatsBox/Columns/NameColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "LATE BUMPS"
 
-[node name="Label6" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer2"]
+[node name="Label6" type="Label" parent="EntireStatsBox/Columns/NameColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "PERFECT BUMPS"
 
-[node name="Label3" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer2"]
+[node name="Label3" type="Label" parent="EntireStatsBox/Columns/NameColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "BALL BOUNCES"
 
-[node name="Label4" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer2"]
+[node name="Label4" type="Label" parent="EntireStatsBox/Columns/NameColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "Score"
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer2/HBoxContainer"]
+[node name="NumberColumn" type="VBoxContainer" parent="EntireStatsBox/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Time" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer3"]
+[node name="Time" type="Label" parent="EntireStatsBox/Columns/NumberColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "10000"
 
-[node name="EarlyBumps" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer3"]
+[node name="EarlyBumps" type="Label" parent="EntireStatsBox/Columns/NumberColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "50"
 
-[node name="LateBumps" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer3"]
+[node name="LateBumps" type="Label" parent="EntireStatsBox/Columns/NumberColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "50"
 
-[node name="PerfectBumps" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer3"]
+[node name="PerfectBumps" type="Label" parent="EntireStatsBox/Columns/NumberColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "50"
 
-[node name="Bounces" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer3"]
+[node name="Bounces" type="Label" parent="EntireStatsBox/Columns/NumberColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "120"
 
-[node name="Score" type="Label" parent="VBoxContainer2/HBoxContainer/VBoxContainer3"]
+[node name="Score" type="Label" parent="EntireStatsBox/Columns/NumberColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 60
 text = "1000000"
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer2"]
+[node name="VSeparator" type="VSeparator" parent="EntireStatsBox"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer2"]
+[node name="FinalScoreBox" type="HBoxContainer" parent="EntireStatsBox"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer2/HBoxContainer2"]
+[node name="Label" type="Label" parent="EntireStatsBox/FinalScoreBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 80
 text = "FINAL SCORE"
 
-[node name="FinalScore" type="Label" parent="VBoxContainer2/HBoxContainer2"]
+[node name="FinalScore" type="Label" parent="EntireStatsBox/FinalScoreBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 80
 text = "10010170"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="ButtomContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
@@ -181,7 +181,7 @@ offset_top = -176.0
 offset_right = 224.0
 offset_bottom = -80.0
 
-[node name="NextBtn" type="Button" parent="VBoxContainer"]
+[node name="NextBtn" type="Button" parent="ButtomContainer"]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 size_flags_vertical = 2
@@ -190,4 +190,4 @@ theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 80
 text = "NEXT"
 
-[connection signal="pressed" from="VBoxContainer/NextBtn" to="." method="_on_NextBtn_pressed"]
+[connection signal="pressed" from="ButtomContainer/NextBtn" to="." method="_on_NextBtn_pressed"]
