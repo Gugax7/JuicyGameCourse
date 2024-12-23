@@ -19,7 +19,7 @@ func _ready() -> void:
 	#$VBoxContainer/NextBtn.grab_focus()
 	update_stats()
 	hide_stats()
-	animate_stats()
+	#animate_stats() (already called on animation)
 
 func update_stats() -> void:
 	var ms = Globals.stats["time"] * 1000
@@ -63,7 +63,8 @@ func animate_stats()->void:
 		var key = Globals.stats.keys()[i]
 		tween.tween_method(set_label_number.bind(child),0,Globals.stats[key],0.5)
 		tween.parallel().tween_property(child,"self_modulate:a", 1.0,0.25)
-		tween.tween_callback(screen_shake.bind(0.4,20,10))
+		tween.parallel().tween_callback(screen_shake.bind(0.4,20,10))
+		tween.parallel().tween_callback($Shaker.start.bind(0.25))
 		tween.tween_interval(0.26)
 	
 	tween.tween_interval(0.25)
@@ -74,7 +75,8 @@ func animate_stats()->void:
 	#FINAL SCORE COUNT UP
 	tween.tween_method(set_label_number.bind(final_score),0,final_score_value,0.5)
 	tween.parallel().tween_property(final_score,"self_modulate:a", 1.0,0.25)
-	tween.tween_callback(screen_shake.bind(0.4,20,10))
+	tween.parallel().tween_callback(screen_shake.bind(0.4,20,10))
+	tween.parallel().tween_callback($Shaker.start.bind(1.0))
 	
 	tween.tween_interval(1.0)
 	tween.tween_property($ButtomContainer,"position:y",904,0.3).from(get_viewport_rect().size.y)
@@ -86,7 +88,8 @@ func set_label_number(number:int, label:Label) -> void:
 	label.set_text(str(number))
 
 func screen_shake(duration: float, frequency: float, amplitude: float):
-	Globals.camera.shake(duration,frequency,amplitude)
+	#Globals.camera.shake(duration,frequency,amplitude)
+	pass
 
 func _on_NextBtn_pressed() -> void:
 	emit_signal("next")
