@@ -1,12 +1,13 @@
 extends Node2D
 
+@export var ultimate_ready: PackedScene = preload("res://scenes/ui/ultimate/ultimate_ready.tscn")
 @export var game_over_scene: PackedScene = preload("res://scenes/ui/game_over/game_over.tscn")
 @export var stage_clear_scene: PackedScene = preload("res://scenes/ui/stage_clear/stage_clear.tscn")
 @export var brick_scene: PackedScene = preload("res://scenes/brick/brick.tscn")
 @export var block_energy: int = 10
 @export var energy_block_energy: int = 100
-@onready var camera = $Camera2D
 
+@onready var camera = $Camera2D
 @onready var paddle: CharacterBody2D = $Paddle
 @onready var ball: CharacterBody2D = $Ball
 @onready var energy_bar: Control = $HUDCanvasLayer/EnergyBar
@@ -16,6 +17,7 @@ extends Node2D
 @onready var brick_container: Node = $Bricks
 @onready var combo_timer: Timer = $ComboTimer
 @onready var combo_lbl = $Combo
+@onready var hud_canvas_layer = $HUDCanvasLayer
 @onready var ui_canvas_layer = $UICanvasLayer
 
 var health: int = 3
@@ -84,6 +86,8 @@ func reset_and_attach_ball() -> void:
 	ball.appear()
 	
 func add_energy(value: float) -> void:
+	if energy < 100 and energy + value >=100:
+		ultimate_ready_animation()
 	energy += value
 	energy = clamp(energy, 0, 100)
 	energy_bar.set_energy(energy)
@@ -111,6 +115,10 @@ func show_combo(combo: int) -> void:
 	
 func hide_combo() -> void:
 	combo_lbl.visible = false
+	
+func ultimate_ready_animation():
+	var instance = ultimate_ready.instantiate()
+	hud_canvas_layer.add_child(instance)
 	
 ######### SIGNALS ###########
 func on_brick_destroyed(which) -> void:

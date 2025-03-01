@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8a6tufn2p5b4"]
+
+[ext_resource type="Script" path="res://scenes/ui/ultimate/ultimate_ready.gd" id="1_bbuc4"]
+[ext_resource type="FontFile" uid="uid://br01odh1twpni" path="res://shared/fonts/aldo_the_apache/AldotheApache.ttf" id="2_h1lo4"]
+[ext_resource type="Script" path="res://addons/shaker/shaker.gd" id="3_gipfu"]
+
+[sub_resource type="Curve" id="Curve_nmrtb"]
+_data = [Vector2(0, 0), 0.0, 0.0367515, 0, 0, Vector2(1, 1), -0.0504649, 0.0, 0, 0]
+point_count = 2
+
+[node name="UltimateReady" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(960, 540)
+script = ExtResource("1_bbuc4")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -632.5
+offset_top = -83.5
+offset_right = 632.5
+offset_bottom = 83.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(632, 0)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.996078, 0.00784314, 0.309804, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("2_h1lo4")
+theme_override_font_sizes/font_size = 200
+text = "ULTIMATE READY!"
+
+[node name="Shaker" type="Node" parent="." node_paths=PackedStringArray("target_node")]
+script = ExtResource("3_gipfu")
+target_node = NodePath("../Label")
+target_property = &"rotation_degrees"
+min_value = -3.0
+max_value = 3.0
+fall_off = SubResource("Curve_nmrtb")
